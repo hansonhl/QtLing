@@ -19,13 +19,13 @@ class LowerTableView;
 typedef  QPair<CStem*,CSignature*>* ptr_to_stem_sig_pair;
 
 struct Parse_triple {
-    QString         p_stem;
-    QString         p_suffix;
+    QString         m_stem;
+    QString         m_suffix;
 //    CSignature*     p_signature; // we will get rid of this, since it can be a hanging pointer when the lexicon changes.
-    QString         p_sig_string;
+    QString         m_sig_string;
 
     Parse_triple(QString stem, QString suffix, QString sig_string)
-        {p_stem = stem; p_suffix = suffix;  p_sig_string =sig_string;}
+        {m_stem = stem; m_suffix = suffix;  m_sig_string =sig_string;}
 };
 
 
@@ -49,21 +49,22 @@ public:
     //Accessors
     void                                add_parse(CStem* stem, CSuffix* suffix, CSignature* signature);
 //    void                                add_parse_triple(QString stem, QString affix, CSignature*);
-    void                                add_parse_triple(QString stem, QString affix, sig_string this_sig_string);
+    void                                add_parse_triple(QString stem, QString affix, sigstring_t this_sig_string);
     void                                add_to_autobiography(QString line);
     void                                clear_signatures() { m_Signatures.clear();}
-    void                                clear_parse_triple_map() {m_Parse_triple_map.clear();}
+    void                                clear_parse_triple_map();
     QList<QString>*                     get_autobiography() {return & m_Autobiography;}
     QString                             get_key() {return m_Word;}
     int                                 get_word_count() const  { return m_WordCount; }
-    const QMap<stem_t,Parse_triple*>*          get_parse_triple_map()     const  { return & m_Parse_triple_map; }
+    QMap<stem_t,Parse_triple*>*         get_parse_triple_map()     { return & m_Parse_triple_map; }
     QList<QPair<CStem*,CSignature*>*> * get_signatures ()   {return &m_Signatures;}
     QString                             get_word()      const { return m_Word; }
     void                                IncrementWordCount(int n = 1);
     void                                SetWordCount(int count) { m_WordCount = count;}
 
-    void                                set_json_id(int id) { m_json_id = id; }
-    int                                 get_json_id() { return m_json_id; }
+    void                        set_json_id(const int id) {m_json_id = id;}
+    int                         get_json_id() const {return m_json_id;}
+    void                        write_json(QJsonObject& ref_json, eJsonType json_type = INDEXED) const;
 
 };
 

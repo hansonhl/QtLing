@@ -40,7 +40,7 @@ void MainWindow::write_stems_and_words()
 //                    << std::setw(20)<< this_triple->p_suffix
 //                    << std::setw(15) << this_triple->p_stem;
                 out.setFieldWidth(20);
-                out << pWord->get_key() << "+" <<  this_triple->p_stem  << "+"<< this_triple->p_suffix << endl ;
+                out << pWord->get_key() << "+" <<  this_triple->m_stem  << "+"<< this_triple->m_suffix << endl ;
         }
     }
 }
@@ -66,8 +66,8 @@ void MainWindow::read_stems_and_words()
         }
         lexicon->get_words()->add(words[0]);
     }
-    lexicon->step2_create_stem_affix_parses();
-    lexicon->step3_assign_affixes_to_stems("Reading stems and words");
+    lexicon->step2_from_protostems_to_parses();
+    lexicon->step3_from_parses_to_stem_to_sig_maps("Reading stems and words");
     load_models(lexicon);
     create_or_update_TreeModel(lexicon);
 

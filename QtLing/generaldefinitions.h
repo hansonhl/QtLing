@@ -231,6 +231,17 @@ enum eComponentType
    CT_hypothesis2
 };
 
+enum eMinimumStemCountFlag
+{
+    MS_respect_mininmum_stem_count,
+    MS_ignore_minimum_stem_count
+};
+
+enum eJsonType
+{
+    INDEXED,
+    MAPPED
+};
 
 /*
 enum eCurrentDisplay
